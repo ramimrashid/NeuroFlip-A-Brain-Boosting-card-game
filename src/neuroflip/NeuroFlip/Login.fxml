@@ -21,5 +21,6 @@
          </font>
       </Text>
       <Button fx:id="SignUpbutton" layoutX="283.0" layoutY="248.0" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="134.0" text="SignUp" />
+      <Text fx:id="Lwarnings" layoutX="195.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="164.13671875" />
     </children>
 </AnchorPane>

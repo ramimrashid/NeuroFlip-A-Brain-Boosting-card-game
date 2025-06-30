@@ -18,7 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import java.sql.*;
 /**
  *
  * @author Ramim
@@ -41,6 +41,8 @@ public class LoginController implements Initializable {
     private Text LoginHedding;
     @FXML
     private Button SignUpbutton;
+    @FXML
+    private Text Lwarnings;
     
     
    
@@ -65,8 +67,58 @@ public class LoginController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
-        // TODO
+        });      
+         // ✅ Login logic
+    Loginbutton.setOnAction(event -> {
+        String username = UseNameInput.getText().trim();
+        String password = PasswordInput.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Lwarnings.setText("⚠️ Username or Password is empty.");
+            return;
+        }
+        String dbURL = "jdbc:mysql://localhost:3306/neuroflip";
+        String dbUser = "root";
+        String dbPass = "";
+        try {
+            java.sql.Connection conn = java.sql.DriverManager.getConnection(dbURL, dbUser, dbPass);
+
+            String query = "SELECT * FROM User WHERE user_name = ? AND password = ?";
+            java.sql.PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            java.sql.ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Lwarnings.setText("✅ Login successful!");
+          
+
+                 // ✅ Load dashboard and pass username
+                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DashBoard.fxml"));
+                 Parent root = loader.load();
+
+                // Get DashboardController and call setUsername()
+                DashBoardController controller = loader.getController();
+                controller.setUsername(username);  // pass the logged-in username
+
+                // Show the dashboard
+                Stage stage = (Stage) Loginbutton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Dashboard");
+                stage.show();
+
+            } else {
+                Lwarnings.setText("❌ Invalid username or password.");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Lwarnings.setText("❌ Login failed due to database error.");
+        }
+    });
+    
     }    
 
     @FXML

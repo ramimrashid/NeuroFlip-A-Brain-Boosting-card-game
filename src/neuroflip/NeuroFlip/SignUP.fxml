@@ -9,9 +9,9 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="neuroflip.NeuroFlip.SignUPController">
    <children>
       <TextField fx:id="FullNameInput" layoutX="178.0" layoutY="83.0" prefHeight="25.0" prefWidth="235.0" promptText="full name" />
-      <TextField layoutX="178.0" layoutY="126.0" prefHeight="25.0" prefWidth="235.0" promptText="username" />
+      <TextField fx:id="usernameInput" layoutX="178.0" layoutY="126.0" prefHeight="25.0" prefWidth="235.0" promptText="username" />
       <TextField fx:id="gmailInput" layoutX="179.0" layoutY="166.0" prefHeight="25.0" prefWidth="235.0" promptText="gmail" />
-      <TextField layoutX="179.0" layoutY="209.0" prefHeight="25.0" prefWidth="235.0" promptText="password" />
+      <TextField fx:id="passwordInput" layoutX="179.0" layoutY="209.0" prefHeight="25.0" prefWidth="235.0" promptText="password" />
       <TextField fx:id="cppasswordinput" layoutX="181.0" layoutY="254.0" prefHeight="25.0" prefWidth="235.0" promptText="Confirm Password" />
       <Text fx:id="usernameT" layoutX="117.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
       <Text fx:id="fullnameT" layoutX="117.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" />
@@ -23,6 +23,16 @@
       <Text fx:id="SignUpHedding" layoutX="273.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SignUp">
          <font>
             <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="Swarnig" fill="#e40c0c" layoutX="165.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="Ssuccess" fill="#26e30e" layoutX="165.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
          </font>
       </Text>
    </children>
