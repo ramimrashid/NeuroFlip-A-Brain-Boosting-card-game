@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.scene.control.Hyperlink;
 /**
  * FXML Controller class
  *
@@ -26,6 +27,8 @@ public class HomeController implements Initializable {
     private Text WelcomeSlogan;
     @FXML
     private Button ContinueB;
+    @FXML
+    private Hyperlink AdminLogin;
 
     /**
      * Initializes the controller class.
@@ -46,6 +49,20 @@ public class HomeController implements Initializable {
                 e.printStackTrace();
             }
         });
+        
+         AdminLogin.setOnAction(event -> {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminLogin.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) AdminLogin.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Admin Login");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    });
         // TODO
     }    
     
