@@ -1,0 +1,50 @@
+.root {
+    -fx-background-color: #f0f4f8;
+}
+
+.label-welcome {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.label-info {
+    -fx-font-size: 16px;
+    -fx-text-fill: #34495e;
+}
+
+.button-reset {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+}
+
+.button-reset:hover {
+    -fx-background-color: #2980b9;
+}
+
+.card {
+    -fx-background-color: #ecf0f1;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+    -fx-padding: 20;
+}
+
+.card:hover {
+    -fx-background-color: #dfe6e9;
+}
+
+.card-matched {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+}
+
+.card-flipped {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}

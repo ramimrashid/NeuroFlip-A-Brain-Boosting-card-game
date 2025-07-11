@@ -39,25 +39,65 @@ public class DashBoardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         logoutB.setOnAction(event -> {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+                URL fxmlUrl = getClass().getResource("/neuroflip/NeuroFlip/Login.fxml");
+                if (fxmlUrl == null) {
+                    throw new IOException("Cannot find Login.fxml");
+                }
+                FXMLLoader loader = new FXMLLoader(fxmlUrl);
                 Parent root = loader.load();
                 Stage stage = (Stage) logoutB.getScene().getWindow();
-                stage.setScene(new Scene(root));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
                 stage.setTitle("Login Page");
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
+                // Optionally, show an alert to the user
             }
         });
-        
-    }    
-    // ✅ This method will be called from LoginController
+
+        play.setOnAction(event -> {
+            try {
+                // Set username in Session
+                String username = ProfileName.getText();
+                Session.setUsername(username);
+
+                // Load Gamefile.fxml
+                URL fxmlUrl = getClass().getResource("/neuroflip/NeuroFlip/Gamefile.fxml");
+                if (fxmlUrl == null) {
+                    throw new IOException("Cannot find Gamefile.fxml");
+                }
+                System.out.println("Loading Gamefile.fxml from: " + fxmlUrl);
+                FXMLLoader loader = new FXMLLoader(fxmlUrl);
+                Parent root = loader.load();
+
+                // Create scene and add stylesheet
+                Scene scene = new Scene(root);
+                URL cssUrl = getClass().getResource("styles.css");
+                if (cssUrl == null) {
+                    throw new IOException("Cannot find styles.css");
+                }
+                System.out.println("Loading styles.css from: " + cssUrl);
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+
+                // Set up the stage
+                Stage stage = (Stage) play.getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("NeuroFlip Game");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Optionally, show an alert to the user
+            }
+        });
+    }
+
+    // Called from LoginController to set username
     public void setUsername(String username) {
         ProfileName.setText(username);
         Wusername.setText(username);
+        Session.setUsername(username); // Ensure Session is updated
     }
-    
 }

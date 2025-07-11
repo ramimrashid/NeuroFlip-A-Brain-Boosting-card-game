@@ -83,7 +83,6 @@ public class AdminLoginController implements Initializable {
                 } else {
                     Lwarnings.setText("❌ Invalid username or password.");
                 }
-
                 rs.close();
                 stmt.close();
                 conn.close();
