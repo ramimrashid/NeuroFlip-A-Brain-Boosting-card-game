@@ -5,6 +5,7 @@
 package neuroflip.NeuroFlip;
 
 /**
+ * FXML Controller class
  *
  * @author Ramim
  */

@@ -40,9 +40,24 @@ public class AdminLoginController implements Initializable {
 
     @FXML
     private PasswordField Password;
+    @FXML
+    private Button back;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        back.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) back.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Sign Up Page");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }); 
+        
         adminlogin.setOnAction(event -> {
             String username = Username.getText().trim();
             String password = Password.getText().trim();

@@ -43,6 +43,8 @@ public class LoginController implements Initializable {
     private Button SignUpbutton;
     @FXML
     private Text Lwarnings;
+    @FXML
+    private Button back;
     
     
    
@@ -67,7 +69,23 @@ public class LoginController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });      
+        });     
+        
+         back.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) back.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Sign Up Page");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });  
+        
+        
+        
          // ✅ Login logic
     Loginbutton.setOnAction(event -> {
         String username = UseNameInput.getText().trim();

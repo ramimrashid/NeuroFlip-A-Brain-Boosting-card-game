@@ -4,6 +4,7 @@
  */
 package neuroflip.NeuroFlip;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -11,9 +12,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -34,6 +39,8 @@ public class AdminPanelController implements Initializable {
     private ObservableList<ObservableList<String>> cardList = FXCollections.observableArrayList();
 
     private String selectedCardID = null; // Store selected ID
+    @FXML
+    private Button logout;
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/neuroflip", "root", "");
@@ -43,6 +50,20 @@ public class AdminPanelController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setupTable();
         loadCards();
+        
+        
+        logout.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) logout.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Sign Up Page");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }); 
 
         CardValueTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {

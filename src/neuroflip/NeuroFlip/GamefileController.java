@@ -29,6 +29,8 @@ import javafx.stage.Stage;
 
 /**
  * FXML Controller class
+ *
+ * @author Ramim
  */
 
 public class GamefileController implements Initializable {

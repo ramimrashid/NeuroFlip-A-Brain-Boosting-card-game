@@ -20,5 +20,6 @@
       <PasswordField fx:id="Password" layoutX="274.0" layoutY="146.0" prefHeight="25.0" prefWidth="149.0" promptText="Password" />
       <Button fx:id="adminlogin" layoutX="296.0" layoutY="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Login" />
       <Text fx:id="Lwarnings" layoutX="272.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="128.0" />
+      <Button fx:id="back" layoutX="34.0" layoutY="33.0" mnemonicParsing="false" text=" ←" />
    </children>
 </AnchorPane>
