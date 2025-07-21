@@ -34,12 +34,6 @@ public class LoginController implements Initializable {
     @FXML
     private TextField PasswordInput;
     @FXML
-    private Text UserNameT;
-    @FXML
-    private Text PasswordT;
-    @FXML
-    private Text LoginHedding;
-    @FXML
     private Button SignUpbutton;
     @FXML
     private Text Lwarnings;
@@ -83,9 +77,6 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
         });  
-        
-        
-        
          // ✅ Login logic
     Loginbutton.setOnAction(event -> {
         String username = UseNameInput.getText().trim();

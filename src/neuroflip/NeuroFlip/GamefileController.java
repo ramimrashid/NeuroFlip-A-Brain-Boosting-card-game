@@ -221,22 +221,43 @@ public class GamefileController implements Initializable {
         movesLabel.setText("Moves: " + moves);
     }
 
-    private void updateTimeLabel() {
-        int minutes = secondsElapsed / 60;
-        int seconds = secondsElapsed % 60;
-        timeLabel.setText(String.format("Time: %02d:%02d", minutes, seconds));
-    }
-
     private void startTimer() {
-        timer = new PauseTransition(Duration.seconds(1));
-        timer.setCycleCount(PauseTransition.INDEFINITE);
-        timer.setOnFinished(event -> {
-            secondsElapsed++;
-            updateTimeLabel();
-            timer.playFromStart();
-        });
-        timer.play();
+    if (timer != null) {
+        timer.stop();
+        System.out.println("Stopped existing timer at: " + System.currentTimeMillis()); // Debug timestamp
     }
+    timer = new PauseTransition(Duration.seconds(1));
+    timer.setCycleCount(PauseTransition.INDEFINITE);
+    timer.setOnFinished(event -> {
+        secondsElapsed++;
+        System.out.println("Timer tick at: " + System.currentTimeMillis() + ", secondsElapsed = " + secondsElapsed); // Debug log
+        javafx.application.Platform.runLater(() -> {
+            updateTimeLabel();
+            System.out.println("Updated timeLabel in Platform.runLater to: Time: " + String.format("%02d:%02d", secondsElapsed / 60, secondsElapsed % 60)); // Debug log
+        });
+        timer.playFromStart();
+    });
+    secondsElapsed = 0;
+    System.out.println("Timer starting, initial time set at: " + System.currentTimeMillis()); // Debug timestamp
+    javafx.application.Platform.runLater(() -> {
+        updateTimeLabel();
+        System.out.println("Initial timeLabel update in Platform.runLater to: Time: 00:00"); // Debug log
+    });
+    timer.play();
+    System.out.println("Timer started at: " + System.currentTimeMillis()); // Debug timestamp
+}
+
+private void updateTimeLabel() {
+    int minutes = secondsElapsed / 60;
+    int seconds = secondsElapsed % 60;
+    String timeText = String.format("");
+    if (timeLabel == null) {
+        System.out.println("Error: timeLabel is null"); // Debug FXML binding
+    } else {
+        timeLabel.setText("");
+        System.out.println("Set timeLabel to: " + timeText); // Debug log
+    }
+}
     @FXML
     private void resetGame() {
         timer.stop();
