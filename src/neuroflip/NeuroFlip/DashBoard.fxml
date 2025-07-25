@@ -9,9 +9,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="466.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="neuroflip.NeuroFlip.DashBoardController">
    <children>
-      <ImageView fitHeight="466.0" fitWidth="873.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="466.0" fitWidth="661.0" layoutX="279.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Images/flip-card-memory-test.png" />
+            <Image url="@../../Images/3.jpg" />
          </image>
       </ImageView>
       <Text fx:id="ProfileName" fill="WHITE" layoutX="588.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="afaf" textAlignment="RIGHT" wrappingWidth="160.13671875">
@@ -30,17 +30,17 @@
             <Font size="13.0" />
          </font>
       </Text>
-      <Text fill="#fffefe" layoutX="25.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stats:    ">
+      <Text layoutX="25.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stats:    ">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Text>
-      <Text fill="#f8f7f7" layoutX="25.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Previous Score:">
+      <Text layoutX="25.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Previous Score:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text fill="#f8f7f7" layoutX="25.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="High Score:">
+      <Text layoutX="25.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="High Score:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -50,8 +50,8 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Text fx:id="previousScour" fill="WHITE" layoutX="125.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="Highscoure" fill="#f2eeee" layoutX="125.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="previousScour" layoutX="125.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="Highscoure" layoutX="125.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Button fx:id="LeaderBoard" layoutX="21.0" layoutY="428.0" mnemonicParsing="false" style="-fx-background-color: #5df79c;" text="Leader Board" textFill="#5a30c6">
          <font>
             <Font name="System Bold" size="12.0" />

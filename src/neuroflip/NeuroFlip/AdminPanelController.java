@@ -41,6 +41,8 @@ public class AdminPanelController implements Initializable {
     private String selectedCardID = null; // Store selected ID
     @FXML
     private Button logout;
+    @FXML
+    private Button HandelLavel;
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/neuroflip", "root", "");
@@ -64,6 +66,23 @@ public class AdminPanelController implements Initializable {
                 e.printStackTrace();
             }
         }); 
+        
+        
+        HandelLavel.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LevelHandel.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) HandelLavel.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Handel Level");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }); 
+        
+        
+        
 
         CardValueTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {

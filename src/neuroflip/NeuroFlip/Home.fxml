@@ -9,12 +9,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="339.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="neuroflip.NeuroFlip.HomeController">
    <children>
-      <ImageView fitHeight="348.0" fitWidth="600.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="348.0" fitWidth="296.0" layoutX="188.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Images/screen-0.jpg" />
+            <Image url="@../../Images/2.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="ContinueB" layoutX="261.0" layoutY="227.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="77.0" text="Continue" />
+      <Button fx:id="ContinueB" layoutX="261.0" layoutY="244.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="77.0" text="Continue" />
       <Hyperlink fx:id="AdminLogin" layoutX="525.0" layoutY="14.0" text="Admin">
          <font>
             <Font name="System Bold" size="12.0" />

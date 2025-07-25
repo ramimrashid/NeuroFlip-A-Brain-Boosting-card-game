@@ -16,11 +16,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
@@ -32,7 +34,6 @@ import javafx.stage.Stage;
  *
  * @author Ramim
  */
-
 public class GamefileController implements Initializable {
 
     @FXML
@@ -45,6 +46,10 @@ public class GamefileController implements Initializable {
     private Label timeLabel;
     @FXML
     private Button resetButton;
+    @FXML
+    private ComboBox<String> levelSelector;
+    @FXML
+    private Button back;
 
     private List<Card> cards;
     private Card firstFlippedCard;
@@ -53,10 +58,8 @@ public class GamefileController implements Initializable {
     private PauseTransition timer;
     private Session session;
     private Connection dbConnection;
-    @FXML
-    private Button back;
     
-    
+
     private static class Card {
         Button button;
         String name;
@@ -91,17 +94,23 @@ public class GamefileController implements Initializable {
         String userName = session.getUsername();
         welcomeLabel.setText("Welcome, " + userName + "!");
         connectToDatabase();
+
+        // Initialize level selector
+        levelSelector.setItems(FXCollections.observableArrayList("Hard", "Normal", "Easy"));
+        levelSelector.setValue("Easy"); // Default to Easy
+        levelSelector.setOnAction(event -> resetGame());
+
         loadCards();
         setupGame();
         startTimer();
-        
+
         back.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DashBoard.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) back.getScene().getWindow();
                 stage.setScene(new Scene(root));
-                stage.setTitle("Sign Up Page");
+                stage.setTitle("DashBoard");
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -120,15 +129,46 @@ public class GamefileController implements Initializable {
     private void loadCards() {
         cards = new ArrayList<>();
         try {
+            // Load all unique card names from the database
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT cardname FROM cards");
             ResultSet rs = stmt.executeQuery();
-            List<String> cardNames = new ArrayList<>();
+            List<String> uniqueCardNames = new ArrayList<>();
             while (rs.next()) {
-                String name = rs.getString("cardname");
-                cardNames.add(name);
-                cardNames.add(name); // Add twice for pairs
+                uniqueCardNames.add(rs.getString("cardname"));
             }
+
+            // Shuffle unique card names
+            Collections.shuffle(uniqueCardNames);
+
+            // Determine number of pairs based on level
+            int numPairs;
+            String level = levelSelector.getValue();
+            switch (level) {
+                case "Hard":
+                    numPairs = game_level.getHard(); // Use all available cards
+                    break;
+                case "Normal":
+                    numPairs = game_level.getNormal(); // 4 pairs (8 cards)
+                    break;
+                case "Easy":
+                    numPairs = game_level.getEasy(); // 2 pairs (4 cards)
+                    break;
+                default:
+                    numPairs = game_level.getEasy(); // Fallback to Easy
+            }
+
+            // Select unique card names and create pairs
+            List<String> cardNames = new ArrayList<>();
+            for (int i = 0; i < numPairs && i < uniqueCardNames.size(); i++) {
+                String name = uniqueCardNames.get(i);
+                cardNames.add(name); // Add first card of the pair
+                cardNames.add(name); // Add second card of the pair
+            }
+
+            // Shuffle the paired cards
             Collections.shuffle(cardNames);
+
+            // Create Card objects
             for (String name : cardNames) {
                 Card card = new Card(name);
                 cards.add(card);
@@ -143,9 +183,15 @@ public class GamefileController implements Initializable {
         secondsElapsed = 0;
         firstFlippedCard = null;
         cardGrid.getChildren().clear();
+
+        // Determine grid size based on number of cards
+        int numCards = cards.size();
+        int cols = (int) Math.ceil(Math.sqrt(numCards));
+        int rows = (int) Math.ceil((double) numCards / cols);
+
         int index = 0;
-        for (int row = 0; row < 2; row++) {
-            for (int col = 0; col < cards.size() / 2; col++) {
+        for (int row = 0; row < rows && index < numCards; row++) {
+            for (int col = 0; col < cols && index < numCards; col++) {
                 Card card = cards.get(index++);
                 cardGrid.add(card.button, col, row);
                 card.button.setOnAction(event -> handleCardClick(card));
@@ -222,42 +268,43 @@ public class GamefileController implements Initializable {
     }
 
     private void startTimer() {
-    if (timer != null) {
-        timer.stop();
-        System.out.println("Stopped existing timer at: " + System.currentTimeMillis()); // Debug timestamp
-    }
-    timer = new PauseTransition(Duration.seconds(1));
-    timer.setCycleCount(PauseTransition.INDEFINITE);
-    timer.setOnFinished(event -> {
-        secondsElapsed++;
-        System.out.println("Timer tick at: " + System.currentTimeMillis() + ", secondsElapsed = " + secondsElapsed); // Debug log
+        if (timer != null) {
+            timer.stop();
+            System.out.println("Stopped existing timer at: " + System.currentTimeMillis()); // Debug timestamp
+        }
+        timer = new PauseTransition(Duration.seconds(1));
+        timer.setCycleCount(PauseTransition.INDEFINITE);
+        timer.setOnFinished(event -> {
+            secondsElapsed++;
+            System.out.println("Timer tick at: " + System.currentTimeMillis() + ", secondsElapsed = " + secondsElapsed); // Debug log
+            javafx.application.Platform.runLater(() -> {
+                updateTimeLabel();
+                System.out.println("Updated timeLabel in Platform.runLater to: Time: " + String.format("%02d:%02d", secondsElapsed / 60, secondsElapsed % 60)); // Debug log
+            });
+            timer.playFromStart();
+        });
+        secondsElapsed = 0;
+        System.out.println("Timer starting, initial time set at: " + System.currentTimeMillis()); // Debug timestamp
         javafx.application.Platform.runLater(() -> {
             updateTimeLabel();
-            System.out.println("Updated timeLabel in Platform.runLater to: Time: " + String.format("%02d:%02d", secondsElapsed / 60, secondsElapsed % 60)); // Debug log
+            System.out.println("Initial timeLabel update in Platform.runLater to: Time: 00:00"); // Debug log
         });
-        timer.playFromStart();
-    });
-    secondsElapsed = 0;
-    System.out.println("Timer starting, initial time set at: " + System.currentTimeMillis()); // Debug timestamp
-    javafx.application.Platform.runLater(() -> {
-        updateTimeLabel();
-        System.out.println("Initial timeLabel update in Platform.runLater to: Time: 00:00"); // Debug log
-    });
-    timer.play();
-    System.out.println("Timer started at: " + System.currentTimeMillis()); // Debug timestamp
-}
-
-private void updateTimeLabel() {
-    int minutes = secondsElapsed / 60;
-    int seconds = secondsElapsed % 60;
-    String timeText = String.format("");
-    if (timeLabel == null) {
-        System.out.println("Error: timeLabel is null"); // Debug FXML binding
-    } else {
-        timeLabel.setText("");
-        System.out.println("Set timeLabel to: " + timeText); // Debug log
+        timer.play();
+        System.out.println("Timer started at: " + System.currentTimeMillis()); // Debug timestamp
     }
-}
+
+    private void updateTimeLabel() {
+        int minutes = secondsElapsed / 60;
+        int seconds = secondsElapsed % 60;
+        String timeText = String.format("Time: %02d:%02d", minutes, seconds);
+        if (timeLabel == null) {
+            System.out.println("Error: timeLabel is null"); // Debug FXML binding
+        } else {
+            timeLabel.setText(timeText);
+            System.out.println("Set timeLabel to: " + timeText); // Debug log
+        }
+    }
+
     @FXML
     private void resetGame() {
         timer.stop();

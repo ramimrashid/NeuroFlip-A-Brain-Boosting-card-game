@@ -27,6 +27,8 @@ import javafx.stage.Stage;
  * @author Ramim
  */
 public class DashBoardController implements Initializable {
+    
+    
 
     @FXML
     private Text ProfileName;
