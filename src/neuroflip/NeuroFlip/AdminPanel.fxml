@@ -34,6 +34,6 @@
       <Button fx:id="CardEdit" layoutX="511.0" layoutY="226.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Edit" />
       <Button fx:id="CardDelete" layoutX="511.0" layoutY="272.0" mnemonicParsing="false" text="Delete" />
       <Button fx:id="logout" layoutX="570.0" layoutY="70.0" mnemonicParsing="false" text="Logout" />
-      <Button fx:id="HandelLavel" layoutX="555.0" layoutY="38.0" mnemonicParsing="false" text="Handel Lavel" />
+      <Button fx:id="HandelLavel" layoutX="555.0" layoutY="38.0" mnemonicParsing="false" text="Handle Lavel" />
    </children>
 </AnchorPane>
