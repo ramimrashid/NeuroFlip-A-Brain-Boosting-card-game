@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="298.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="neuroflip.NeuroFlip.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="298.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="neuroflip.NeuroFlip.LoginController">
     <children>
       <ImageView fitHeight="296.0" fitWidth="531.0" layoutX="170.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,7 +26,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Text fill="#c3d079" fontSmoothingType="LCD" layoutX="71.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial Black, Helvetica, sans-serif; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.5, 2, 2); -fx-background-color: linear-gradient(to bottom, rgba(0, 102, 204, 0.7), rgba(128, 0, 128, 0.7)); -fx-background-radius: 10; -fx-padding: 10 20 10 20; -fx-border-color: #00ccff; -fx-border-width: 2; -fx-border-radius: 8;" text="NeuroFlip: A Brain-Training Memory Card Game" wrappingWidth="456.728515625">
+      <Text fill="#c3d079" fontSmoothingType="LCD" layoutX="71.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial Black, Helvetica, sans-serif; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.5, 2, 2); -fx-background-color: linear-gradient(to bottom, rgba(0, 102, 204, 0.7), rgba(128, 0, 128, 0.7)); -fx-background-radius: 10; -fx-padding: 10 20 10 20; -fx-border-color: #00ccff; -fx-border-width: 2; -fx-border-radius: 8;" text="NeuroFlip: A-Brain-Boosting-card-game" wrappingWidth="456.728515625">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
